@@ -4,7 +4,7 @@ function Search() {
       <form action="">
         <input
           type="text"
-          name="movieName"
+          name="artist"
           placeholder="Search an artist..."
           className="btn wide-block btn-light"
         />
