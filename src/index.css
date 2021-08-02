@@ -52,3 +52,34 @@ ul {
   overflow: hidden;
   padding: 0 5rem;
 }
+
+/*  Buttons */
+
+.btn {
+  background-color: var(--light-color);
+  display: inline-block;
+  padding: 0.4rem 1.3rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+  cursor: pointer; 
+  transition: opacity 0.2s ease-in;
+  border: none
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.wide-block {
+  display: block;
+  width: 100%;
+}
+
+.btn-dark {
+  background-color: var(--dark-color-alt);
+  color: var(--light-color);
+}
+
+.btn-light {
+  border: solid 1px var(--light-color-alt);
+}
