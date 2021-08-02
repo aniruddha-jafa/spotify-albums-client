@@ -1,13 +1,54 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Global */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+:root {
+  --primary-color: #1DB954;
+  --dark-color:#191414;
+  --dark-color-alt: #333333;
+  --light-color: #ffffff;
+  --light-color-alt: #cccccc;
+  --danger-color: #dc3545;
+  --success-color: #28a745;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  line-height: 2;
+  font-family: 'Open Sans', sans-serif;
+  background-color: var(--light-color);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: #666;
+}
+
+ul {
+  list-style: none;
+}
+
+/* utilities */
+.bg-primary {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+}
+
+.bg-dark {
+  background-color: var(--dark-color);
+  color: var(--light-color);
+}
+
+.container {
+  margin: auto;
+  overflow: hidden;
+  padding: 0 5rem;
 }
