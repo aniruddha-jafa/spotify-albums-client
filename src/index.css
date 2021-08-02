@@ -83,3 +83,31 @@ ul {
 .btn-light {
   border: solid 1px var(--light-color-alt);
 }
+
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 2rem;
+  opacity: 0.9;
+  margin-bottom: 1rem;
+  min-height: 4rem;
+}
+
+.navbar ul {
+  display: flex;
+}
+
+.navbar a {
+  color: #fff;
+  opacity: 0.9;
+  padding: 0.45rem;
+  margin: 0 0.25rem;
+}
+
+.navbar a:hover {
+  color: var(--light-color);
+  opacity: 1;
+}
