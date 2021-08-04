@@ -3,9 +3,8 @@ import { render, screen } from '@testing-library/react'
 
 import { About } from './pages'
 
-test.only('About component renders with correct heading', () => {
+test('About component renders with correct heading', () => {
   render(<About />)
-  const aboutHeader = screen.getByRole('heading')
+  const aboutHeader = screen.getByRole('heading', { name: 'About' })
   expect(aboutHeader).toBeInTheDocument()
-  expect(aboutHeader).toHaveTextContent('About')
 })
