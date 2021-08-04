@@ -1,9 +1,13 @@
 import Search from './Search'
+import Albums from './album/Albums'
+
+import { ALBUMS_SAMPLE_JSON } from './album/albumsMockData'
 
 export function Home() {
   return (
     <>
       <Search />
+      <Albums albums={ALBUMS_SAMPLE_JSON} />
     </>
   )
 }
