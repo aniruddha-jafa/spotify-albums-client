@@ -28,9 +28,9 @@ a {
   text-decoration: none;
 }
 
-a:hover {
+/* a:hover {
   color: #666;
-}
+} */
 
 ul {
   list-style: none;
@@ -110,4 +110,42 @@ ul {
 .navbar a:hover {
   color: var(--light-color);
   opacity: 1;
+}
+
+/* Cards */
+.card {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: var(--light-color-alt) 1px dotted;
+  margin: 0;
+  color: var(--dark-color)
+}
+
+.card:hover {
+  cursor: pointer;
+  transform: translate(-2px, -2px);
+  box-shadow: 2px 2px 8px grey;
+}
+
+.card-text {
+  size: 8rem;
+  text-align: center;
+}
+
+
+/* Image */
+.album-img {
+  height: 80%;
+  width: 80%;
+}
+
+/* Albums grid */
+.albums-grid  {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+  margin: 1rem;
 }
