@@ -1,4 +1,4 @@
-
+import { Link } from 'react-router-dom'
 
 function Navbar({ title='Spotify album search' }) {
   return (
@@ -7,10 +7,10 @@ function Navbar({ title='Spotify album search' }) {
         <h1>{title}</h1>
         <ul>
           <li>
-            <a>Home</a>
+            <Link to='/'>Home</Link>
           </li>
           <li>
-            <a>About</a>
+            <Link to='/about'>About</Link>
           </li>
         </ul>
       </nav>
