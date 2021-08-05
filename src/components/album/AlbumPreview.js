@@ -1,17 +1,21 @@
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
+
 function AlbumPreview({ album }) {
-  const { name, images, release_date } = album
+  const { name, images, release_date, id } = album
   const year = release_date.slice(0, 4)
   return (
-    <div className="card text-center">
-      <img
-        src={images[0].url}
-        alt="album-img"
-        className="album-img"
-      />
-      <h3 className="card-text">{name}</h3>
-      <p>{year}</p>
+    <div>
+      <Link to={`/album/${id}`} className="card text-center">
+        <img
+          src={images[0].url}
+          alt="album-img"
+          className="album-img"
+        />
+        <h3 className="card-text">{name}</h3>
+        <p>{year}</p>
+      </Link>
     </div>
   );
 }

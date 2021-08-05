@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 function Album({ albumDetail, getAlbum, match }) {
   const backButtonText = '<< Back to Search'
   const albumId = match.params.id
-  const { name, artists, duration_ms, is_playable, tracks } = albumDetail
+  const { name, label, artists, total_tracks: totalTracks, tracks } = albumDetail
   useEffect(() => getAlbum(albumId), [getAlbum, albumId])
   return(
     <>
@@ -13,10 +13,10 @@ function Album({ albumDetail, getAlbum, match }) {
         {backButtonText}
       </Link>
       <h1>{name}</h1>
-      <p> Total tracks: {albumDetail.total_tracks}</p>
-      <p> Duration in ms: {duration_ms} </p>
-      { albumDetail.label && <p> label: {albumDetail.label} </p>}
-      { tracks.items.map(track => <p> {track.name } </p>)}
+      <p> Total tracks: {totalTracks}</p>
+      { label && <p> label: {label} </p>}
+      { artists.length > 1 && <p> artists: {artists} </p>}
+      { tracks.items.map(track => <p> { track.name } </p>)}
     </>
   )
 }
