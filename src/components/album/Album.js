@@ -3,23 +3,61 @@ import { useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 function Album({ albumDetail, getAlbum, match }) {
-  const backButtonText = '<< Back to Search'
+
+  const { name, label, total_tracks: totalTracks, tracks } = albumDetail
   const albumId = match.params.id
-  const { name, label, artists, total_tracks: totalTracks, tracks } = albumDetail
+  const backButtonText = '<< Back to Search'
+
   useEffect(() => getAlbum(albumId), [getAlbum, albumId])
+  
+  const InfoBadges = ({ totalTracks, label }) => (
+    <ul>
+      {
+        totalTracks &&
+        <div className="badge bg-info">
+          <b> total tracks </b> {totalTracks} 
+        </div>
+      }
+      {
+        label &&
+        <div className="badge bg-info">
+          <b> label </b> {label}
+        </div>
+      }
+    </ul>
+  )
+
+  const TrackItem = ({ track }) => (
+      <div className='wide-block'>
+        <p> {track.name} </p>
+        {
+          track.is_playable &&
+          <audio controls>
+            <source src={track.preview_url}/>
+          </audio>
+        }
+      </div>
+    )
+
   return(
-    <>
-      <Link to='/' className='btn'>
-        {backButtonText}
-      </Link>
-      <h1>{name}</h1>
-      <p> Total tracks: {totalTracks}</p>
-      { label && <p> label: {label} </p>}
-      { artists.length > 1 && <p> artists: {artists} </p>}
-      { tracks.items.map(track => <p> { track.name } </p>)}
-    </>
+    <div className="card-text">
+      <Link to='/' className='btn'> {backButtonText} </Link>
+      <h1>{ name }</h1>
+      <InfoBadges totalTracks={totalTracks} label={label} />
+      <br />
+      <p>
+        Listen to the full versions of all tracks on Spotify!
+      </p>
+      <div className="btn btn-dark">Go to Spotify</div>
+      <br />
+      <br />
+      { tracks && tracks.items && tracks.items.map(track => <TrackItem track={track} /> ) }
+    </div>
   )
 }
+
+
+
 
 const trackType = {
   name: PropTypes.string.isRequired,
@@ -28,9 +66,6 @@ const trackType = {
   is_playable: PropTypes.bool.isRequired,
   popularity: PropTypes.number,
   preview_url: PropTypes.string,
-  external_urls: PropTypes.shape({
-    spotify: PropTypes.string
-  }),
 }
 
 Album.propTypes = {
@@ -41,14 +76,14 @@ Album.propTypes = {
     label: PropTypes.string,
     genres: PropTypes.array,
     tracks: PropTypes.shape({
-      items: PropTypes.arrayOf(trackType)
-    })
+      items: PropTypes.arrayOf(trackType).isRequired
+    }).isRequired,
+    external_urls: PropTypes.shape({
+      spotify: PropTypes.string
+    }),
   }),
+
 }
-
-
-
-
 
 
 export default Album

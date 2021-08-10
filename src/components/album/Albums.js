@@ -3,7 +3,7 @@ import AlbumPreview  from "./AlbumPreview";
 
 function Albums({ albums }) {
   return(
-    <div className='albums-grid '>
+    <div className='albums-grid'>
       { albums.map((album) => <AlbumPreview key={album.id} album={album} />) }
     </div>
   )

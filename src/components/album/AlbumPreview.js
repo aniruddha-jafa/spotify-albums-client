@@ -7,7 +7,7 @@ function AlbumPreview({ album }) {
   const year = release_date.slice(0, 4)
   return (
     <div>
-      <Link to={`/album/${id}`} className="card text-center">
+      <Link to={`/album/${id}`} className="card text-center to-hover">
         <img
           src={images[0].url}
           alt="album-img"
