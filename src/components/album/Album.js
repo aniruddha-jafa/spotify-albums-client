@@ -61,12 +61,10 @@ function Album({ albumDetail, getAlbum, match }) {
       <ToSpotifyButton />
       <br />
       <br />
-      { tracks && tracks.items && tracks.items.map(track => <TrackItem track={track} /> ) }
+      { tracks && tracks.items && tracks.items.map(track => <TrackItem key={track.id} track={track} /> ) }
     </div>
   )
 }
-
-
 
 
 const trackType = {
