@@ -2,13 +2,16 @@ import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-function Album({ albumDetail, getAlbum, match }) {
+function Album({ albumDetail, getAlbum, setAlbum, match }) {
 
   const { name, label, total_tracks: totalTracks, tracks } = albumDetail
   const albumId = match.params.id
   const backButtonText = '<< Back to Search'
-
-  useEffect(() => getAlbum(albumId), [getAlbum, albumId])
+  useEffect(() => {
+    getAlbum(albumId)
+    .then(album => setAlbum(album))
+  },
+  [getAlbum, setAlbum, albumId])
   
   const InfoBadges = ({ totalTracks, label }) => (
     <ul>

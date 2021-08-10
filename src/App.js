@@ -5,14 +5,10 @@ import Navbar from './components/Navbar'
 import { Home, About } from './components/pages'
 import Album from './components/album/Album'
 
-import { ALBUM_SAMPLE_JSON } from './components/album/albumsMockData'
+import { getAlbum } from './utils'
 
 function App() {
   const [album, setAlbum] = useState([])
-
-  const getAlbum = async (albumId) => {
-    setAlbum(ALBUM_SAMPLE_JSON)
-  }
   return (
     <>      
       <Router>
@@ -22,7 +18,8 @@ function App() {
             <Route exact path='/' component={Home}></Route>
             <Route path='/about' component={About}></Route>
             <Route exact path='/album/:id' render={props => (
-                <Album {...props} albumDetail={album} getAlbum={getAlbum} />
+                <Album {...props} 
+                albumDetail={album} getAlbum={getAlbum} setAlbum={setAlbum}/>
               )}
             />
           </Switch>
