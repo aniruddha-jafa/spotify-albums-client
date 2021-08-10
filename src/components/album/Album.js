@@ -39,6 +39,16 @@ function Album({ albumDetail, getAlbum, match }) {
       </div>
     )
 
+  const ToSpotifyButton = () => (
+    <>
+      {
+        albumDetail.external_urls &&
+        albumDetail.external_urls.spotify &&
+        <a href={albumDetail.external_urls.spotify} className="btn btn-dark">Go to Spotify</a>
+      }
+    </>
+  )
+
   return(
     <div className="card-text">
       <Link to='/' className='btn'> {backButtonText} </Link>
@@ -48,7 +58,7 @@ function Album({ albumDetail, getAlbum, match }) {
       <p>
         Listen to the full versions of all tracks on Spotify!
       </p>
-      <div className="btn btn-dark">Go to Spotify</div>
+      <ToSpotifyButton />
       <br />
       <br />
       { tracks && tracks.items && tracks.items.map(track => <TrackItem track={track} /> ) }
