@@ -6,7 +6,7 @@ import { About } from './components/pages'
 import Album from './components/album/Album'
 import Albums from './components/album/Albums'
 
-import { getAlbum } from './components/album/utils'
+import { getAlbum } from './components/album/albumUtils'
 import Search from './components/Search'
 import { ALBUMS_SAMPLE_JSON } from './components/album/albumsMockData'
 
