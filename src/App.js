@@ -11,7 +11,7 @@ import Search from './components/Search'
 import { ALBUMS_SAMPLE_JSON } from './components/album/albumsMockData'
 
 function App() {
-  const [album, setAlbum] = useState([])
+  const [album, setAlbum] = useState({})
   return (
     <>      
       <Router>
