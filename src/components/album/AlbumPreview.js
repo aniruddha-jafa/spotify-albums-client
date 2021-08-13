@@ -3,18 +3,28 @@ import PropTypes from 'prop-types'
 
 
 function AlbumPreview({ album }) {
-  const { name, images, release_date, id } = album
-  const year = release_date.slice(0, 4)
+  if (!album) {
+    return <></>
+  }
+  const { name = '', images = [], release_date: releaseDate ='', id = '' } = album
+  const year = releaseDate.slice(0, 4)
   return (
     <div>
       <Link to={`/album/${id}`} className="card text-center to-hover">
         <img
-          src={images[0].url}
+          src={
+            images && 
+            images.length > 0 &&
+            images[0].url
+          }
           alt="album-img"
           className="album-img"
         />
         <h3 className="card-text">{name}</h3>
-        <p>{year}</p>
+        <p>
+          {year && 
+          year}
+        </p>
       </Link>
     </div>
   );

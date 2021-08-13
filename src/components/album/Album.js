@@ -5,22 +5,31 @@ import PropTypes from 'prop-types'
 import { getAlbum } from './albumUtils'
 
 function Album({ albumDetail, setAlbum, match }) {
-
-  const { name, label, total_tracks: totalTracks, tracks } = albumDetail
   const albumId = match.params.id
-  const backButtonText = '<< Back to Search'
-  
   useEffect(() => {
+    if (!albumId) {
+      return
+    }
     getAlbum(albumId)
-    .then(album => setAlbum(album))
-    .catch(err => console.err(err))
-  }, [setAlbum, albumId])
-  
+      .then(album => setAlbum(album))
+      .catch(err => console.err(err))
+  }, [albumId, setAlbum])
+
+  if (!albumDetail) {
+    return <></>
+  }  
+  const { name = '', label = '', total_tracks: totalTracks = 0, tracks = {} } = albumDetail
+  const backButtonText = '<< Back to Search'
+
   return(
     <div className="card-text">
       <Link to='/' className='btn'> {backButtonText} </Link>
-      <h1>{ name }</h1>
-      <InfoBadges totalTracks={totalTracks} label={label} />
+      <h1>
+        { name }
+      </h1>
+      {
+        <InfoBadges totalTracks={totalTracks} label={label} />
+      }
       <br />
       <p>
         Listen to the full versions of all tracks on Spotify!
@@ -29,7 +38,7 @@ function Album({ albumDetail, setAlbum, match }) {
       <br />
       <br />
       { 
-        tracks && 
+        tracks > 0 && 
         tracks.items && 
         tracks.items.map(track => <TrackItem key={track.id} track={track} /> )
       }
@@ -54,7 +63,7 @@ Album.propTypes = {
 
 }
 
-const InfoBadges = ({ totalTracks, label }) => (
+const InfoBadges = ({ totalTracks, label}) => (
   <ul>
     {
       totalTracks &&
