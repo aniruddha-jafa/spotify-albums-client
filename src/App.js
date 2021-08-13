@@ -25,7 +25,7 @@ function App() {
             <Route path='/about' component={About}></Route>
             <Route exact path='/album/:id' render={props => (
                 <Album {...props} 
-                albumDetail={album} getAlbum={getAlbum} setAlbum={setAlbum}/>
+                albumDetail={album} setAlbum={setAlbum}/>
               )}
             />
           </Switch>
