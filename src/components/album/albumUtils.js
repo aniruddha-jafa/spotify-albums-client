@@ -1,6 +1,6 @@
 
 
-const getApiToken = () => 'BQCvqIzFp_fqWnnTAqZU8vRBDZyh4HdZpeaKFt2Q5Zd-72vaL4qQQgGXVpHYTec1EMBFjgvn4i5-MFQqqUw'
+const getApiToken = () => 'BQAp3ftitRNBPwoBcMjcytxlL8YVcg3fuw_bsk68MlexqlOnolbprgAhkj-rLr2Rp9Df-lS46wTUaQCDJRI'
 
 export async function getArtistId(artistName) {
   try {
@@ -33,6 +33,9 @@ export async function getArtistId(artistName) {
 // get single album
 export async function getAlbum(albumId) {
   try {
+    if (!albumId) {
+      return {}
+    }
     const apiToken = await getApiToken()
     let album = await fetch(`https://api.spotify.com/v1/albums/${albumId}?market=US`,
       {
@@ -49,13 +52,15 @@ export async function getAlbum(albumId) {
   }
 }
 
-// get multiple albums, given an artist
-export async function getAlbums(artist) {
+export async function getAlbums(artistId) {
   try {
-    //const artistID = await getArtistId("Coldplay")
-    const artistID = '4gzpq5DPGxSnKTe4SA8HAU'
+    if (!artistId) {
+      return []
+    }
     const apiToken = await getApiToken()
-    let albums = await fetch(`https://api.spotify.com/v1/artists/${artistID}/albums?market=US`,
+    let offset = 0, limit = 50
+    const res = await fetch(`https://api.spotify.com/v1/artists/${artistId}/albums?
+    include_groups=album&offset=${offset}&limit=${limit}&market=US`,
     {
       headers: {
         'Authorization': `Bearer ${apiToken}`,
@@ -63,9 +68,15 @@ export async function getAlbums(artist) {
         'Accept': 'application/json'
       }
     })
-    albums = await albums.json()
+    if (!res.ok) {
+      throw new Error(res)
+    }
+    let albums = await res.json()
+    albums = await albums.items
+    albums = filterAlbums(albums)
     return albums
   } catch(err) {
+    console.error(`Could not fetch albums for id ${artistId}`)
     console.error(err)
   }
 }
