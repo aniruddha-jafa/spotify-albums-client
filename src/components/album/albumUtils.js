@@ -2,8 +2,12 @@
 
 const getApiToken = () => 'BQCvqIzFp_fqWnnTAqZU8vRBDZyh4HdZpeaKFt2Q5Zd-72vaL4qQQgGXVpHYTec1EMBFjgvn4i5-MFQqqUw'
 
-async function getArtistId(artistName) {
+export async function getArtistId(artistName) {
   try {
+    if (!artistName) {
+      return ""
+    }
+    console.info('Getting id for artistName:', artistName)
     const apiToken = await getApiToken()
     let res = await fetch(`https://api.spotify.com/v1/search?q=${artistName}&type=artist&market=US&limit=1&offset=0`,
     {
@@ -13,15 +17,15 @@ async function getArtistId(artistName) {
         'Accept': 'application/json'
       }
     })
-    res = await res.json()
     if (!res.ok) {
-      return
+      throw new Error(res)
     }
-    const artists = res.artists 
-    const artist = artists.items[0] | {}
-    const id = artist.id | ''
+    res = await res.json()
+    const artist = await res.artists.items[0]
+    const id = artist.id
     return id
   } catch(err) {
+    console.error('Could not fetch artistId for artist', artistName)
     console.error(err)
   }
 }

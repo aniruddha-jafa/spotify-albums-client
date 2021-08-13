@@ -12,6 +12,8 @@ import { ALBUMS_SAMPLE_JSON } from './components/album/albumsMockData'
 
 function App() {
   const [album, setAlbum] = useState({})
+  const [artistId, setArtistId] = useState("")
+
   return (
     <>      
       <Router>
@@ -19,6 +21,7 @@ function App() {
         <div className="container">
           <Switch>
             <Route exact path='/'>
+              <Search setArtistId={setArtistId}/>
               <Search />
               <Albums albums={ALBUMS_SAMPLE_JSON}/>
             </Route>
