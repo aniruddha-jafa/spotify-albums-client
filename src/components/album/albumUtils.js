@@ -1,3 +1,4 @@
+import lodash from 'lodash'
 
 
 const getApiToken = () => 'BQAp3ftitRNBPwoBcMjcytxlL8YVcg3fuw_bsk68MlexqlOnolbprgAhkj-rLr2Rp9Df-lS46wTUaQCDJRI'
@@ -79,4 +80,19 @@ export async function getAlbums(artistId) {
     console.error(`Could not fetch albums for id ${artistId}`)
     console.error(err)
   }
+}
+
+function filterAlbums(albums) {
+  let output = lodash.uniqBy(albums, 'name')
+  
+  // exclude albums which contain `(.. remix)` in title
+  // e.g. Higher Power (Tiesto Remix)
+  output = output.filter(album => {
+    if (album.name.match(/remix(es){0,1}/i)) {  
+      return false
+    }
+    return true
+  })
+  
+  return output
 }
