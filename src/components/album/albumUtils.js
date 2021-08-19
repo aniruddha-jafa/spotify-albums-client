@@ -1,7 +1,25 @@
 import lodash from 'lodash'
 
 
-const getApiToken = () => 'BQAp3ftitRNBPwoBcMjcytxlL8YVcg3fuw_bsk68MlexqlOnolbprgAhkj-rLr2Rp9Df-lS46wTUaQCDJRI'
+const getApiToken = () => 'BQBFaANDCIJ8n7vRlXfWtcykfIeouDybe5TTGn11jvXCNmugIebNt-WwpeYXiCQ1HJz3tMvUBOfNZlV4a8c'
+
+export async function fetchSpotifyResource(uri) {
+  try {
+    const apiToken = getApiToken()
+    const options = {
+      headers: {
+        'Authorization': `Bearer ${apiToken}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    }
+    let data = await fetch(uri, options)
+    data = await data.json()
+    return data
+  } catch (err) {
+    return err
+  }
+}
 
 export async function getArtistId(artistName) {
   try {
@@ -9,19 +27,8 @@ export async function getArtistId(artistName) {
       return ""
     }
     console.info('Getting id for artistName:', artistName)
-    const apiToken = await getApiToken()
-    let res = await fetch(`https://api.spotify.com/v1/search?q=${artistName}&type=artist&market=US&limit=1&offset=0`,
-    {
-      headers: {
-        'Authorization': `Bearer ${apiToken}`,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    })
-    if (!res.ok) {
-      throw new Error(res)
-    }
-    res = await res.json()
+    const findArtistIdUri = `https://api.spotify.com/v1/search?q=${artistName}&type=artist&market=US&limit=1&offset=0`
+    const res = await fetchSpotifyResource(findArtistIdUri)
     const artist = await res.artists.items[0]
     const id = artist.id
     return id
@@ -37,16 +44,8 @@ export async function getAlbum(albumId) {
     if (!albumId) {
       return {}
     }
-    const apiToken = await getApiToken()
-    let album = await fetch(`https://api.spotify.com/v1/albums/${albumId}?market=US`,
-      {
-        headers: {
-          'Authorization': `Bearer ${apiToken}`,
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
-      })
-    album = await album.json()
+    const albumUri = `https://api.spotify.com/v1/albums/${albumId}?market=US`
+    const album = await fetchSpotifyResource(albumUri)
     return album
   } catch(err) {
     console.error(err)
@@ -58,21 +57,11 @@ export async function getAlbums(artistId) {
     if (!artistId) {
       return []
     }
-    const apiToken = await getApiToken()
     let offset = 0, limit = 50
-    const res = await fetch(`https://api.spotify.com/v1/artists/${artistId}/albums?
-    include_groups=album&offset=${offset}&limit=${limit}&market=US`,
-    {
-      headers: {
-        'Authorization': `Bearer ${apiToken}`,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    })
-    if (!res.ok) {
-      throw new Error(res)
-    }
-    let albums = await res.json()
+    const albumsUri = `https://api.spotify.com/v1/artists/${artistId}/albums?
+    include_groups=album&offset=${offset}&limit=${limit}&market=US`    
+
+    let albums = await fetchSpotifyResource(albumsUri)
     albums = await albums.items
     albums = filterAlbums(albums)
     return albums
