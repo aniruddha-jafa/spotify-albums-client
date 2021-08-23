@@ -8,23 +8,18 @@ function Search({ setArtistId }) {
   const [searchText, setSearchText] = useState('')
 
   useEffect(() => {
-    if (!artistName) {
-      return
-    }
+    if (!artistName) return; 
     getArtistId(artistName)
-      .then(id => setArtistId(id))
+      .then(setArtistId)
       .catch(err => console.error(err))
   }, [artistName, setArtistId])
 
 
-  const onSubmit = async e => {
+  const onSubmit = e => {
     e.preventDefault()
-    const artistName = searchText
-    if (!artistName) {
-      return
-    }
-    console.info('Setting artist name provided:', artistName)
-    setArtistName(artistName)
+    if (!searchText) return;
+    setArtistName(searchText)
+    console.info('Have artist name to:', searchText)
   }
 
   const onChange = e => setSearchText(e.target.value)
