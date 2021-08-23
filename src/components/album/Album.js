@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import TrackItem from './Track'
-import { getOneAlbum } from './albumUtils'
+import { getOneAlbum } from './../../utils/albumUtils'
 
 
 function Album({ match }) {
@@ -14,7 +14,7 @@ function Album({ match }) {
     if (!albumId) return;
     getOneAlbum(albumId)
       .then(setAlbum)
-      .catch(err => console.err(err))
+      .catch(err => console.error(err))
   }, [albumId])
 
   if (!album) {

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 
-import { getArtistId } from './album/albumUtils'
+import { getArtistId } from './../utils/albumUtils'
 
 function Search({ setArtistId }) {
   const [artistName, setArtistName] = useState('')

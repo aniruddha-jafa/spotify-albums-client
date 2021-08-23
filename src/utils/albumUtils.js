@@ -1,11 +1,13 @@
 import lodash from 'lodash'
 
 
-const getApiToken = () => 'BQBFaANDCIJ8n7vRlXfWtcykfIeouDybe5TTGn11jvXCNmugIebNt-WwpeYXiCQ1HJz3tMvUBOfNZlV4a8c'
 
-async function fetchSpotifyResource(uri) {
+async function fetchSpotifyResource(uri, getNewToken=false) {
   try {
-    const apiToken = getApiToken()
+    const apiToken = await getApiToken(getNewToken) 
+    if (!apiToken) {
+      throw new Error('Need valid token')
+    }
     const options = {
       headers: {
         'Authorization': `Bearer ${apiToken}`,
@@ -17,7 +19,7 @@ async function fetchSpotifyResource(uri) {
     data = await data.json()
     return data
   } catch (err) {
-    return err
+    console.error(err)
   }
 }
 

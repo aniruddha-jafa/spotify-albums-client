@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types'
 
 
-import { getManyAlbums  } from './albumUtils';
+import { getManyAlbums  } from './../../utils/albumUtils';
 import AlbumPreview  from "./AlbumPreview";
 
  
