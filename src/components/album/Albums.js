@@ -1,7 +1,21 @@
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types'
+
+
+import { getManyAlbums  } from './albumUtils';
 import AlbumPreview  from "./AlbumPreview";
+
  
-function Albums({ albums }) {
+function Albums({ artistId }) {
+  const [albums, setAlbums] = useState()
+  
+  useEffect(() => {
+    if (!artistId) return;
+    getManyAlbums(artistId)
+      .then(setAlbums)
+      .catch(err => console.error(err))
+  }, [artistId])
+
   if (!albums || albums.length < 1) {
     return <></>
   }

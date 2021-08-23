@@ -1,21 +1,23 @@
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import TrackItem from './Track'
+import { getOneAlbum } from './albumUtils'
 
-function Album({ albumDetail, setAlbum, match }) {
+
+function Album({ match }) {
   const albumId = match.params.id
-  useEffect(() => {
-    if (!albumId) {
-      return
-    }
-    getAlbum(albumId)
-      .then(album => setAlbum(album))
-      .catch(err => console.err(err))
-  }, [albumId, setAlbum])
+  const [album, setAlbum] = useState()
 
-  if (!albumDetail) {
+  useEffect(() => {
+    if (!albumId) return;
+    getOneAlbum(albumId)
+      .then(setAlbum)
+      .catch(err => console.err(err))
+  }, [albumId])
+
+  if (!album) {
     return <></>
   }  
   const { 
@@ -24,20 +26,19 @@ function Album({ albumDetail, setAlbum, match }) {
     total_tracks: totalTracks = 0, 
     tracks = {},
     external_urls: externalUrls
-  } = albumDetail
+  } = album
  
-  const spotifyUrl = externalUrls && externalUrls.spotify
+  const spotifyUrl = externalUrls.spotify || ''
   const backButtonText = '<< Back to Search'
-  console.log(`tracks for album ${albumDetail.name} are`, tracks)
+  console.log(`tracks for album ${name} are`, tracks)
+
   return(
     <div className="card-text">
       <Link to='/' className='btn'> {backButtonText} </Link>
       <h1>
         { name }
       </h1>
-      {
-        <InfoBadges totalTracks={totalTracks} label={label} />
-      }
+      { <InfoBadges totalTracks={totalTracks} label={label} /> }
       <br />
       <p>
         Listen to the full versions of all tracks on Spotify!

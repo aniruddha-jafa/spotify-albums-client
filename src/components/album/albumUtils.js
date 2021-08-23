@@ -3,7 +3,7 @@ import lodash from 'lodash'
 
 const getApiToken = () => 'BQBFaANDCIJ8n7vRlXfWtcykfIeouDybe5TTGn11jvXCNmugIebNt-WwpeYXiCQ1HJz3tMvUBOfNZlV4a8c'
 
-export async function fetchSpotifyResource(uri) {
+async function fetchSpotifyResource(uri) {
   try {
     const apiToken = getApiToken()
     const options = {
@@ -39,7 +39,7 @@ export async function getArtistId(artistName) {
 }
 
 // get single album
-export async function getAlbum(albumId) {
+export async function getOneAlbum(albumId) {
   try {
     if (!albumId) {
       return {}
@@ -52,7 +52,7 @@ export async function getAlbum(albumId) {
   }
 }
 
-export async function getAlbums(artistId) {
+export async function getManyAlbums(artistId) {
   try {
     if (!artistId) {
       return []
