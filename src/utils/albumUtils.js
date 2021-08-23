@@ -2,6 +2,17 @@ import lodash from 'lodash'
 import { config } from './config-dev-secret.js'
 
 let apiToken =  ''
+const EXPIRATION_MS = 3*1e6  // 50 mins
+
+function refreshToken() {  
+  setTimeout(() => {
+    getApiToken(true)
+     .then(() => refreshToken)
+     .catch(err => console.error(err))
+  }, EXPIRATION_MS)
+}
+
+refreshToken()  // recursively calls itself every 50 mins
 
 async function getApiToken (getNewToken=false) {
   try {
@@ -27,9 +38,6 @@ async function getApiToken (getNewToken=false) {
     res = await res.json() 
     console.info('Api token request received response:', res)
     
-    const expirationMs = Math.min(res.expires_in * 1000, 3*1e6)  // <= 50 mins
-    setTimeout(getApiToken(true), expirationMs)
-
     apiToken = await res.access_token || ''
     console.info('setting api token:', apiToken)
 
@@ -41,9 +49,9 @@ async function getApiToken (getNewToken=false) {
 }
 
 
-async function fetchSpotifyResource(uri, getNewToken=false) {
+async function fetchSpotifyResource(uri) {
   try {
-    const apiToken = await getApiToken(getNewToken) 
+    const apiToken = await getApiToken() 
     if (!apiToken) {
       throw new Error('Need valid token')
     }
