@@ -1,5 +1,44 @@
 import lodash from 'lodash'
+import { config } from './config-dev-secret.js'
 
+let apiToken =  ''
+
+async function getApiToken (getNewToken=false) {
+  try {
+    if (!getNewToken && apiToken) {
+      console.info('Returning existing token:', apiToken)
+      return apiToken
+    }
+
+    const secret = process.env.REACT_APP_CLIENT_SECRET || config.getClientSecret() || ''
+    if (!secret) {
+      throw new Error('Need a secret')
+    }
+
+    let res = await fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Basic ${secret}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: "grant_type=client_credentials"
+    })
+
+    res = await res.json() 
+    console.info('Api token request received response:', res)
+    
+    const expirationMs = Math.min(res.expires_in * 1000, 3*1e6)  // <= 50 mins
+    setTimeout(getApiToken(true), expirationMs)
+
+    apiToken = await res.access_token || ''
+    console.info('setting api token:', apiToken)
+
+    return apiToken
+  
+  } catch (err) {
+    console.error('Error in getting api token:', err)
+  }
+}
 
 
 async function fetchSpotifyResource(uri, getNewToken=false) {

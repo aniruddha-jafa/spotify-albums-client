@@ -23,3 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 workspace.code-workspace
+
+*config-dev-secret.js
+# only used for local development, without build process (i.e. no process.env accessible)
+
