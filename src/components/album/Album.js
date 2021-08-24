@@ -32,54 +32,61 @@ function Album({ match }) {
   );
 }
 
+Album.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string
+    })
+  })
+}
+
+function AlbumDetail({ album }) {
   const { 
     name = '', 
     label = '', 
     total_tracks: totalTracks = 0, 
     tracks = {},
-    external_urls: externalUrls
+    external_urls: externalUrls = {}
   } = album
- 
+
   const spotifyUrl = externalUrls.spotify || ''
-  const backButtonText = '<< Back to Search'
-  console.log(`tracks for album ${name} are`, tracks)
+
+  console.info(`tracks for album ${name} are`, tracks)
 
   return(
-    <div className="card-text">
-      <Link to='/' className='btn'> {backButtonText} </Link>
-      <h1>
-        { name }
-      </h1>
-      { <InfoBadges totalTracks={totalTracks} label={label} /> }
-      <br />
-      <p>
-        Listen to the full versions of all tracks on Spotify!
-      </p>
-      {
-        spotifyUrl &&
-        <ToSpotifyButton url={spotifyUrl} />
-      }
-      <br />
-      <br />
-      { 
-        tracks && 
-        tracks.items && 
-        tracks.items.length > 0 &&
-        tracks.items.map(track => <TrackItem key={track.id} track={track} /> )
-      }
-    </div>
-  )
+  <div className="card-text">
+    <h1>
+      { name }
+    </h1>
+      <InfoBadges totalTracks={totalTracks} label={label} />
+    <br />
+    <p>
+      Listen to the full versions of all tracks on Spotify!
+    </p>
+    {
+      spotifyUrl && <ToSpotifyButton url={spotifyUrl} />
+    }
+    <br />
+    <br />
+    { 
+      tracks && 
+      tracks.items && 
+      tracks.items.length > 0 &&
+      tracks.items.map(track => <TrackItem key={track.id} track={track} /> )
+    }
+  </div>
+  );
 }
 
-Album.propTypes = {
-  setAlbum: PropTypes.func.isRequired,
+
+AlbumDetail.propTypes = {
   albumDetail: PropTypes.shape({
     name: PropTypes.string.isRequired,
     total_tracks: PropTypes.number.isRequired,
     label: PropTypes.string,
     genres: PropTypes.array,
     tracks: PropTypes.shape({
-      items: PropTypes.arrayOf(PropTypes.object).isRequired
+      items: PropTypes.arrayOf(TrackItem.PropTypes).isRequired
     }).isRequired,
     external_urls: PropTypes.shape({
       spotify: PropTypes.string
@@ -113,6 +120,5 @@ const ToSpotifyButton = ({url}) => (
     }
   </>
 )
-
 
 export default Album
