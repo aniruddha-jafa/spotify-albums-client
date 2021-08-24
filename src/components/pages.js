@@ -8,3 +8,11 @@ export function About() {
     </>
   )
 }
+
+export const NotFound = () => (
+  <>
+    <h1>Not found! (Error 404)</h1>
+    <p>Sorry, we couldn't find that page </p>
+  </>
+)
+

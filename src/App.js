@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { useState } from 'react'
 
 import Navbar from './components/Navbar'
-import { About } from './components/pages'
+import { About, NotFound} from './components/pages'
 import Album from './components/album/Album'
 import Albums from './components/album/Albums'
 
@@ -24,6 +24,7 @@ function App() {
             </Route>
             <Route path='/about' component={About}></Route>
             <Route exact path='/album/:id' render={props => <Album {...props} />}/>
+            <Route component={NotFound} />
           </Switch>
         </div>
       </Router>
