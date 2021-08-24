@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types'
 
-const TrackItem = ({ track }) => (
-  <div className='wide-block'>
-    <p> {track.name}, {track.duration_ms} </p>
-    {/* {
-      false && 
+const TrackItem = ({ track }) => {
+  return(
+    <div className='wide-block'>
+    <p> {track.name} </p>
+    {
+      track && 
       track.is_playable &&
       <audio controls>
         <source src={track.preview_url}/>
       </audio>
-    } */}
+    }
   </div>
-)
+  );
+}
 
 TrackItem.propTypes = {
 track: PropTypes.shape({

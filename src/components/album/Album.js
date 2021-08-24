@@ -1,25 +1,37 @@
 import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import TrackItem from './Track'
+import Spinner from './../loading/Spinner'
+
 import { getOneAlbum } from './../../utils/albumUtils'
+import { useFetcher } from './../../utils/hooks'
 
 
 function Album({ match }) {
   const albumId = match.params.id
-  const [album, setAlbum] = useState()
+  const { loading, data: album, error } = useFetcher(getOneAlbum, albumId)
 
-  useEffect(() => {
-    if (!albumId) return;
-    getOneAlbum(albumId)
-      .then(setAlbum)
-      .catch(err => console.error(err))
-  }, [albumId])
+  const Error = () => (<pre>{JSON.stringify(error, null, 2)}</pre>)
+  const backButtonText = '<< Back to Search'
+  
+  let ComponentToRender = () => <></>;
 
-  if (!album) {
-    return <></>
-  }  
+  if (error) {
+    ComponentToRender = <Error />
+  } else if (loading) {
+    ComponentToRender = <Spinner />
+  } else if (album) {
+    ComponentToRender = <AlbumDetail album={album} />
+  }
+  return(
+    <>
+      <Link to='/' className='btn'> {backButtonText} </Link>
+      {ComponentToRender}
+    </>
+  );
+}
+
   const { 
     name = '', 
     label = '', 
