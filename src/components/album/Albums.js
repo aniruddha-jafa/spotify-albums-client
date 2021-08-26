@@ -1,33 +1,40 @@
-import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types'
 
+import AlbumPreview  from "./AlbumPreview"
+import Spinner from './../loading/Spinner'
 
-import { getManyAlbums  } from './../../utils/albumUtils';
-import AlbumPreview  from "./AlbumPreview";
-
+import { getManyAlbums  } from './../../utils/albumUtils'
+import { useFetcher } from './../../utils/hooks'
  
 function Albums({ artistId }) {
-  const [albums, setAlbums] = useState()
+  const { loading, data: albums, error } = useFetcher(getManyAlbums, artistId)
   
-  useEffect(() => {
-    if (!artistId) return;
-    getManyAlbums(artistId)
-      .then(setAlbums)
-      .catch(err => console.error(err))
-  }, [artistId])
+  const Error = () => (<pre>{JSON.stringify(error, null, 2)}</pre>)
+  
+  let ComponentToRender = <></>
 
-  if (!albums || albums.length < 1) {
-    return <></>
-  }
-  return(
+  if (!artistId) {
+    // pass
+  } else if (loading) {
+    ComponentToRender = <Spinner />
+  } else if (error) {
+    ComponentToRender = <Error />
+  } else if (albums && albums.length > 0) {
+    ComponentToRender = (
     <div className='albums-grid'>
-      { albums.map((album) => <AlbumPreview key={album.id} album={album} /> ) }
-    </div>
-  )
+      { albums.map(album => <AlbumPreview key={album.id} album={album} /> ) }
+    </div> )
+  }
+
+  return(
+    <>
+      {ComponentToRender}
+    </>
+  );
 } 
 
 Albums.propTypes = {
-  albums: PropTypes.arrayOf(AlbumPreview.propTypes.album)
+  artistId: PropTypes.string.isRequired
 }
 
 export default Albums
