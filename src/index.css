@@ -66,10 +66,6 @@ ul {
   border: none
 }
 
-.btn:hover {
-  opacity: 0.85;
-}
-
 .wide-block {
   display: block;
   width: 100%;
@@ -80,8 +76,17 @@ ul {
   color: var(--light-color);
 }
 
+.btn-dark:hover {
+  opacity: 0.85;
+}
+
 .btn-light {
   border: solid 1px var(--light-color-alt);
+}
+
+.btn-warn:hover {
+  color: var(--light-color);
+  background-color: var(--danger-color);
 }
 
 

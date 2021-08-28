@@ -39,7 +39,7 @@ function Search({ setArtistId }) {
           onChange={onChange}
           value={searchText}
           placeholder="Search an artist..."
-          className="btn wide-block btn-light"
+          className="btn btn-light wide-block"
         />
         <button type="submit" value="search" className="btn wide-block btn-dark">
           Search
@@ -47,7 +47,7 @@ function Search({ setArtistId }) {
       </form>
       {
         artistName && (
-      <button className='btn btn-light' onClick={clearArtist}>
+      <button className='btn btn-light btn-warn' onClick={clearArtist}>
         Clear
       </button>
       )}
