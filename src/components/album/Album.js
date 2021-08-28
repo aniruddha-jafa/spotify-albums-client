@@ -15,19 +15,19 @@ function Album({ match }) {
   const Error = () => (<pre>{JSON.stringify(error, null, 2)}</pre>)
   const backButtonText = '<< Back to Search'
   
-  let ComponentToRender = () => <></>;
+  let componentToRender = <></>;
 
   if (error) {
-    ComponentToRender = <Error />
+    componentToRender = <Error />
   } else if (loading) {
-    ComponentToRender = <Spinner />
+    componentToRender = <Spinner />
   } else if (album) {
-    ComponentToRender = <AlbumDetail album={album} />
+    componentToRender = <AlbumDetail album={album} />
   }
   return(
     <>
       <Link to='/' className='btn'> {backButtonText} </Link>
-      {ComponentToRender}
+      {componentToRender}
     </>
   );
 }

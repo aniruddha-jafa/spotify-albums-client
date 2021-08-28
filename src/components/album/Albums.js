@@ -11,16 +11,16 @@ function Albums({ artistId }) {
   
   const Error = () => (<pre>{JSON.stringify(error, null, 2)}</pre>)
   
-  let ComponentToRender = <></>
+  let componentToRender = <></>
 
   if (!artistId) {
     // pass
   } else if (loading) {
-    ComponentToRender = <Spinner />
+    componentToRender = <Spinner />
   } else if (error) {
-    ComponentToRender = <Error />
+    componentToRender = <Error />
   } else if (albums && albums.length > 0) {
-    ComponentToRender = (
+    componentToRender = (
     <div className='albums-grid'>
       { albums.map(album => <AlbumPreview key={album.id} album={album} /> ) }
     </div> )
@@ -28,7 +28,7 @@ function Albums({ artistId }) {
 
   return(
     <>
-      {ComponentToRender}
+      {componentToRender}
     </>
   );
 } 
