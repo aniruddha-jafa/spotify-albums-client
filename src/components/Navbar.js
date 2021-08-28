@@ -1,10 +1,21 @@
 import { Link } from 'react-router-dom'
 
 function Navbar({ title='Spotify album search' }) {
+  const NavbarTitle = () => (
+    <div className="nav-title">
+      <div>
+        <i className="fab fa-spotify fa-2x"/>
+      </div>
+      <div>
+        <h1>{title}</h1>
+      </div>
+    </div>
+  ) 
+
   return (
     <>
       <nav className="navbar bg-primary">
-        <h1>{title}</h1>
+        <NavbarTitle />
         <ul>
           <li>
             <Link to='/'>Home</Link>

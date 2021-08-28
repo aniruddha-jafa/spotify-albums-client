@@ -112,6 +112,17 @@ ul {
   opacity: 1;
 }
 
+
+.nav-title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.nav-title div {
+  margin: 0 1ch;
+}
+
 /* Cards */
 .card {
   padding: 1rem;
