@@ -17,7 +17,7 @@ refreshToken()  // recursively calls itself every 50 mins
 async function getApiToken (getNewToken=false) {
   try {
     if (!getNewToken && apiToken) {
-      console.info('Returning existing token:', apiToken)
+      console.info(`Returning existing token: ${apiToken.slice(0, 5)}`)
       return apiToken
     }
 
