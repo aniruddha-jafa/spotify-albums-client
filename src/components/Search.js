@@ -24,12 +24,20 @@ function Search({ setArtistId }) {
 
   const onChange = e => setSearchText(e.target.value)
 
+  const clearArtist = () => {
+    setArtistId('')
+    setArtistName('')
+    setSearchText('')
+  }
+
   return (
     <>
-      <form onSubmit={onSubmit} onChange={onChange}>
+      <form onSubmit={onSubmit}>
         <input
           type="text"
           name="artist"
+          onChange={onChange}
+          value={searchText}
           placeholder="Search an artist..."
           className="btn wide-block btn-light"
         />
@@ -37,6 +45,12 @@ function Search({ setArtistId }) {
           Search
         </button>
       </form>
+      {
+        artistName && (
+      <button className='btn btn-light' onClick={clearArtist}>
+        Clear
+      </button>
+      )}
     </>
   )
 }
