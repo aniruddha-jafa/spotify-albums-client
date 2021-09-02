@@ -72,9 +72,8 @@ async function fetchSpotifyResource(uri) {
 
 export async function getArtistId(artistName) {
   try {
-    if (!artistName) {
-      return ""
-    }
+    if (!artistName) return;
+
     console.info('Getting id for artistName:', artistName)
     const findArtistIdUri = `https://api.spotify.com/v1/search?q=${artistName}&type=artist&market=US&limit=1&offset=0`
     const res = await fetchSpotifyResource(findArtistIdUri)
@@ -84,28 +83,27 @@ export async function getArtistId(artistName) {
   } catch(err) {
     console.error('Could not fetch artistId for artist', artistName)
     console.error(err)
+    throw new Error(err)
   }
 }
 
 // get single album
 export async function getOneAlbum(albumId) {
   try {
-    if (!albumId) {
-      return {}
-    }
+    if (!albumId) return;
     const albumUri = `https://api.spotify.com/v1/albums/${albumId}?market=US`
     const album = await fetchSpotifyResource(albumUri)
     return album
   } catch(err) {
-    console.error(err)
+    console.error('Could not get album', err)
+    throw new Error(err)
   }
 }
 
 export async function getManyAlbums(artistId) {
   try {
-    if (!artistId) {
-      return []
-    }
+    if (!artistId) return;
+
     let offset = 0, limit = 50
     const albumsUri = `https://api.spotify.com/v1/artists/${artistId}/albums?
     include_groups=album&offset=${offset}&limit=${limit}&market=US`    
@@ -117,6 +115,7 @@ export async function getManyAlbums(artistId) {
   } catch(err) {
     console.error(`Could not fetch albums for id ${artistId}`)
     console.error(err)
+    throw new Error(err)
   }
 }
 
