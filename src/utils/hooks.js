@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-export function useFetcher(fetcherFunc = fetch, fetcherFuncParams) {
+export function useFetcher(fetcherFunc = undefined, fetcherFuncParams = null) {
   const [data, setData] = useState()
   const [error, setError] = useState()
   const [loading, setLoading] = useState(true)
@@ -10,7 +10,6 @@ export function useFetcher(fetcherFunc = fetch, fetcherFuncParams) {
     if (!fetcherFuncParams) return;
     
     setLoading(true)
-    setError()
 
     fetcherFunc(fetcherFuncParams)
       .then(setData)
