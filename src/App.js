@@ -19,7 +19,7 @@ function App() {
         <div className="container">
           <Switch>
             <Route exact path='/'>
-              <Search setArtistId={setArtistId}/>
+              <Search artistId={artistId} setArtistId={setArtistId}/>
               <Albums artistId={artistId} />
             </Route>
             <Route path='/about' component={About}></Route>

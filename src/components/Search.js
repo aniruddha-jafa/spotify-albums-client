@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 
 import { getArtistId } from './../utils/albumUtils'
 
-function Search({ setArtistId }) {
+function Search({ artistId, setArtistId }) {
   const [artistName, setArtistName] = useState('')
   const [searchText, setSearchText] = useState('')
 
@@ -46,11 +46,11 @@ function Search({ setArtistId }) {
         </button>
       </form>
       {
-        artistName && (
+        artistId &&
       <button className='btn btn-light btn-warn' onClick={clearArtist}>
         Clear
       </button>
-      )}
+      }
     </>
   )
 }
