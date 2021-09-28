@@ -2,39 +2,31 @@ import PropTypes from 'prop-types'
 
 import AlbumPreview  from "./AlbumPreview"
 import Spinner from './../loading/Spinner'
-
-import { getManyAlbums  } from './../../utils/albumUtils'
-import { useFetcher } from './../../utils/hooks'
  
-function Albums({ artistId }) {
-  const { loading, data: albums, error } = useFetcher(getManyAlbums, artistId)
-  
-  const Error = () => (<pre>{JSON.stringify(error, null, 2)}</pre>)
-  
-  let componentToRender = <></>
-
+function Albums({ artistId, albums, loading, error }) {
+  let _Albums = <></>
   if (!artistId) {
     // pass
   } else if (loading) {
-    componentToRender = <Spinner />
+    _Albums = <Spinner />
   } else if (error) {
-    componentToRender = <Error />
+    const Error = () => (<pre>{JSON.stringify(error, null, 2)}</pre>)
+    _Albums = <Error />
   } else if (albums && albums.length > 0) {
-    componentToRender = (
+    _Albums = (
     <div className='albums-grid'>
       { albums.map(album => <AlbumPreview key={album.id} album={album} /> ) }
-    </div> )
-  }
-
+    </div> 
+    )}
   return(
     <>
-      {componentToRender}
+      {_Albums}
     </>
   );
 } 
 
 Albums.propTypes = {
-  artistId: PropTypes.string.isRequired
+  artistId: PropTypes.string
 }
 
 export default Albums
