@@ -4,5 +4,5 @@
 
 Type in an artist, and get their albums using Spotify's api
 
-Built with React
+Built with [React](https://create-react-app.dev/docs/getting-started) through [Create React App](https://create-react-app.dev/docs/getting-started)
 
