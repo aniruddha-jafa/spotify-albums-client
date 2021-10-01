@@ -19,7 +19,7 @@ function Search({ artistId, setArtistId }) {
     e.preventDefault()
     if (!searchText) return;
     setArtistName(searchText)
-    console.info('Have artist name to:', searchText)
+    console.info('Have set artist name to:', artistName)
   }
 
   const onChange = e => setSearchText(e.target.value)

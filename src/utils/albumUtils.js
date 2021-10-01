@@ -103,6 +103,7 @@ export async function getOneAlbum(albumId) {
 export async function getManyAlbums(artistId) {
   try {
     if (!artistId) return;
+    console.info(`Getting many albums for: ${artistId}`)
 
     let offset = 0, limit = 50
     const albumsUri = `https://api.spotify.com/v1/artists/${artistId}/albums?
