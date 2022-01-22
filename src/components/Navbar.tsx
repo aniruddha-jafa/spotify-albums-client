@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-function Navbar({ title='Spotify album search' }) {
+export default function Navbar({ title='Spotify album search' }) {
   const NavbarTitle = () => (
     <div className="nav-title">
       <div>
@@ -28,5 +28,3 @@ function Navbar({ title='Spotify album search' }) {
     </>
   );
 }
-
-export default Navbar
