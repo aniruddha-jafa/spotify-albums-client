@@ -26,7 +26,10 @@ function App() {
               <Albums loading={albumsLoading} albums={albums} error={albumsError} artistId={artistId} />
             </ Route>
             <Route path='/about' component={About} />
-            <Route exact path='/album/:id' render={props => <Album {...props} />} />
+            <Route exact path='/album/:id' render={props => {
+              console.log('render props:', props)
+              return <Album {...props} />}
+              }/>
             <Route component={NotFound} />
           </Switch>
         </div>

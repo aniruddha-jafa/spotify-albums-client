@@ -1,6 +1,14 @@
 import PropTypes from 'prop-types'
+import { SimplifiedTrack } from 'spotify-types'
 
-const TrackItem = ({ track }) => {
+type Props = {
+  track: SimplifiedTrack | null
+}
+
+const TrackItem = ({ track }: Props) => {
+  if (track == null) {
+    return <></>
+  }
   return(
     <div className='wide-block'>
     <p> {track.name} </p>

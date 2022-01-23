@@ -1,20 +1,24 @@
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
+import { Album } from 'spotify-types'
 
-function AlbumPreview({ album }) {
+type Props = {
+  album: Album | null
+}
+
+export default function AlbumPreview({ album }: Props) {
   if (!album) {
+    console.log('album is null...')
     return <></>
   }
-  const { name = '', images = [], release_date: releaseDate ='', id = '' } = album
+  const { name = '', images = [], release_date: releaseDate = '', id = '' } = album
   const year = releaseDate.slice(0, 4)
   return (
     <div>
       <Link to={`/album/${id}`} className="card text-center to-hover">
         <img
           src={
-            images && 
-            images.length > 0 &&
             images[0].url
           }
           alt="album-img"
@@ -37,8 +41,4 @@ AlbumPreview.propTypes = {
     images: PropTypes.array.isRequired,
     release_date: PropTypes.string.isRequired
   }).isRequired
-
 }
-
-
-export default AlbumPreview
