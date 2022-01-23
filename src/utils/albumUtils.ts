@@ -1,5 +1,5 @@
 import { uniqBy } from 'lodash'
-import { config } from './config-dev-secret.js'
+import { config } from './config-dev-secret'
 
 // types
 import { Artist, SearchContent, Paging, Album } from 'spotify-types'

@@ -1,4 +1,5 @@
 
+
 // Coldplay, 2014 onwards
 export const ALBUMS_SAMPLE_JSON = [
   {
@@ -397,9 +398,10 @@ export const ALBUMS_SAMPLE_JSON = [
     "type": "album",
     "uri": "spotify:album:2G4AUqfwxcV1UdQjm2ouYr"
   }
-]
+] as const
 
 // Ghost Stories, 2014
+
 export const ALBUM_SAMPLE_JSON = {
   "album_type": "album",
   "artists": [
@@ -807,4 +809,4 @@ export const TRACK_SAMPLE_JSON = {
   "track_number": 2,
   "type": "track",
   "uri": "spotify:track:23khhseCLQqVMCIT1WMAns"
-}
+} as const
